@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../models/patient.dart';
 import '../services/database_service.dart';
+import 'symptom_checker_screen.dart';
+import 'dosage_calculator_screen.dart';
+import 'patient_tracker_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: _buildDrawer(context),
       appBar: AppBar(
         title: const Text('HealthWorker'),
         backgroundColor: Colors.green[700],
@@ -215,4 +219,87 @@ class _HomeScreenState extends State<HomeScreen> {
       },
     );
   }
+
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          DrawerHeader(
+            decoration: BoxDecoration(color: Colors.green[700]),
+            child: const Align(
+              alignment: Alignment.bottomLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(Icons.health_and_safety,
+                      color: Colors.white, size: 36),
+                  SizedBox(height: 6),
+                  Text('HealthWorker',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  Text('v0.1 · works offline',
+                      style:
+                          TextStyle(color: Colors.white70, fontSize: 12)),
+                ],
+              ),
+            ),
+          ),
+          _navTile(
+            icon: Icons.people,
+            label: 'Patients',
+            onTap: () => Navigator.pop(context),
+          ),
+          _navTile(
+            icon: Icons.checklist,
+            label: 'Symptom checker',
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const SymptomCheckerScreen()));
+            },
+          ),
+          _navTile(
+            icon: Icons.medication_outlined,
+            label: 'Dosage calculator',
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const DosageCalculatorScreen()));
+            },
+          ),
+          _navTile(
+            icon: Icons.monitor_heart,
+            label: 'Vitals tracker',
+            onTap: () async {
+              Navigator.pop(context);
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const PatientTrackerScreen()));
+              _refreshPatients();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _navTile({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) =>
+      ListTile(
+        leading: Icon(icon, color: Colors.green[700]),
+        title: Text(label),
+        onTap: onTap,
+      );
 }

@@ -1,0 +1,284 @@
+{
+  "version": "0.1.0",
+  "lastUpdated": "2026-06-29",
+  "disclaimer": "Decision-support only. Not a substitute for clinical judgment. Refer if uncertain. Thresholds follow WHO IMCI (2014) classification for children 2 months up to 5 years unless otherwise noted.",
+  "conditions": [
+    {
+      "name": "Uncomplicated Malaria",
+      "symptoms": ["fever", "headache", "chills", "sweating", "muscle-pain", "fatigue", "vomiting"],
+      "severity": "moderate",
+      "ageGroup": "all",
+      "treatment": "Confirm with malaria RDT or microscopy before treating. If positive for P. falciparum, give a 3-day course of an artemisinin-based combination therapy (ACT) per body weight; artemether-lumefantrine is first-line in most African and Indian settings. Give paracetamol for fever 38.5 C or above. Advise mother when to return immediately and arrange follow-up in 3 days.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer URGENTLY if any general danger sign (unable to drink or breastfeed, vomits everything, convulsions, lethargy or unconsciousness), stiff neck, or signs of severe malaria (see Severe Malaria).",
+      "medications": ["artemether-lumefantrine", "paracetamol"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Fever section (classify MALARIA)",
+        "WHO Guidelines for the treatment of malaria, 3rd edition, 2015 (and 2022 update): ACTs as first-line for uncomplicated P. falciparum"
+      ]
+    },
+    {
+      "name": "Severe Malaria",
+      "symptoms": ["fever", "convulsions", "lethargy", "unconsciousness", "inability-to-drink", "vomits-everything", "general-danger-sign", "stiff-neck"],
+      "severity": "severe",
+      "ageGroup": "all",
+      "treatment": "Medical emergency. Give first pre-referral dose of parenteral or rectal artesunate (IM or IV artesunate is first-line per WHO). Treat to prevent low blood sugar. Give one dose of paracetamol in clinic for high fever (38.5 C or above). Keep the child warm. Refer URGENTLY.",
+      "referralNeeded": true,
+      "referralCriteria": "Any general danger sign in a child with fever, stiff neck, or known/suspected malaria requires URGENT referral. Classified by IMCI as VERY SEVERE FEBRILE DISEASE.",
+      "medications": ["artesunate-injectable", "paracetamol"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Fever section (VERY SEVERE FEBRILE DISEASE)",
+        "WHO Guidelines for the treatment of malaria, 3rd edition, 2015: IV/IM artesunate first-line for severe malaria"
+      ]
+    },
+    {
+      "name": "Pneumonia (Fast Breathing)",
+      "symptoms": ["cough", "fast-breathing", "difficult-breathing", "fever"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "IMCI fast-breathing thresholds: 50 breaths/min or more in a child 2-12 months; 40 breaths/min or more in a child 12 months up to 5 years. Treat with oral amoxicillin 40 mg/kg twice daily for 5 days (3 days may be used in low-HIV settings without chest indrawing). Soothe throat with safe remedy. Advise mother when to return immediately. Follow-up in 3 days.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer URGENTLY if any general danger sign, chest indrawing, stridor in a calm child, or oxygen saturation <90 percent on pulse oximetry.",
+      "medications": ["amoxicillin", "paracetamol"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Cough or difficult breathing (PNEUMONIA)",
+        "WHO Revised classification and treatment of childhood pneumonia at health facilities, 2014"
+      ]
+    },
+    {
+      "name": "Severe Pneumonia / Very Severe Disease",
+      "symptoms": ["cough", "fast-breathing", "chest-indrawing", "stridor", "general-danger-sign", "inability-to-drink", "lethargy", "convulsions"],
+      "severity": "severe",
+      "ageGroup": "child",
+      "treatment": "Give first dose of an appropriate antibiotic (oral amoxicillin if injectable not available; otherwise injectable ampicillin plus gentamicin per Pocket Book). Treat to prevent low blood sugar. Keep the child warm. If wheezing with fast breathing or chest indrawing, give a trial of rapid-acting inhaled bronchodilator. Refer URGENTLY.",
+      "referralNeeded": true,
+      "referralCriteria": "Any general danger sign OR stridor in a calm child OR (per 2014 revised IMCI) chest indrawing in the presence of a danger sign. SpO2 <90 percent if pulse oximetry available.",
+      "medications": ["amoxicillin", "ampicillin-injectable", "gentamicin-injectable"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Cough or difficult breathing (SEVERE PNEUMONIA OR VERY SEVERE DISEASE)",
+        "WHO Pocket Book of Hospital Care for Children, 2nd edition, 2013, Chapter 4 (Cough or difficult breathing)"
+      ]
+    },
+    {
+      "name": "Acute Watery Diarrhea, No Dehydration",
+      "symptoms": ["diarrhea", "loose-stools"],
+      "severity": "mild",
+      "ageGroup": "child",
+      "treatment": "Plan A: give extra fluid at home (ORS, clean water, soup, breastmilk). Give zinc supplements daily for 10-14 days (20 mg/day for children >=6 months, 10 mg/day for infants 2-6 months). Continue feeding. Advise mother when to return immediately. Follow-up in 5 days if not improving.",
+      "referralNeeded": false,
+      "referralCriteria": "Return immediately if child becomes unable to drink, vomits everything, has blood in stool, sunken eyes, or becomes lethargic.",
+      "medications": ["oral-rehydration-salts", "zinc"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Diarrhoea (NO DEHYDRATION, Plan A)",
+        "WHO/UNICEF Joint Statement on the clinical management of acute diarrhoea, 2004"
+      ]
+    },
+    {
+      "name": "Acute Watery Diarrhea with Some Dehydration",
+      "symptoms": ["diarrhea", "loose-stools", "sunken-eyes", "thirst", "restlessness", "skin-pinch-slow"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "Plan B: classify if two of the following are present - restless/irritable, sunken eyes, drinks eagerly/thirsty, or skin pinch goes back slowly. Give ORS in the clinic over 4 hours (75 mL/kg). Continue breastfeeding. Give zinc supplements for 10-14 days. Reassess and reclassify after 4 hours. Advise mother when to return immediately.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer URGENTLY if child also has any severe classification; if rehydration fails or child develops danger signs.",
+      "medications": ["oral-rehydration-salts", "zinc"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Diarrhoea (SOME DEHYDRATION, Plan B)"
+      ]
+    },
+    {
+      "name": "Severe Dehydration",
+      "symptoms": ["diarrhea", "lethargy", "unconsciousness", "sunken-eyes", "inability-to-drink", "skin-pinch-very-slow", "general-danger-sign"],
+      "severity": "severe",
+      "ageGroup": "child",
+      "treatment": "Plan C. Classify if two of: lethargic or unconscious, sunken eyes, not able to drink or drinking poorly, skin pinch goes back very slowly. Start IV fluids immediately if possible (Ringer's lactate per WHO schedule). If unable to give IV and no other severe classification, give ORS by nasogastric tube while arranging transfer. Refer URGENTLY with mother giving frequent sips of ORS on the way.",
+      "referralNeeded": true,
+      "referralCriteria": "Always refer URGENTLY unless IV rehydration can be given on site. Any child with severe dehydration plus another severe classification must be referred.",
+      "medications": ["ringers-lactate", "oral-rehydration-salts", "zinc"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Diarrhoea (SEVERE DEHYDRATION, Plan C)",
+        "WHO Pocket Book of Hospital Care for Children, 2nd edition, 2013, Chapter 5"
+      ]
+    },
+    {
+      "name": "Dysentery (Bloody Diarrhea)",
+      "symptoms": ["diarrhea", "bloody-stool", "abdominal-pain", "fever"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "Treat dehydration as classified. Give an oral antibiotic recommended for Shigella in your area; WHO IMCI 2014 recommends ciprofloxacin 15 mg/kg twice daily for 3 days as first-line empirical therapy. Give zinc supplements for 10-14 days. Follow-up in 2 days.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer if child is very young (<12 months), has severe dehydration, becomes lethargic, has convulsions or abdominal distension, or is not improving after 2 days of antibiotics.",
+      "medications": ["ciprofloxacin", "oral-rehydration-salts", "zinc"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Diarrhoea (DYSENTERY)",
+        "WHO Pocket Book of Hospital Care for Children, 2nd edition, 2013"
+      ]
+    },
+    {
+      "name": "Persistent Diarrhea",
+      "symptoms": ["diarrhea", "loose-stools", "weight-loss", "fatigue"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "Defined as diarrhoea for 14 days or more. If no dehydration: advise mother on feeding (continued breastfeeding, lactose-reduced diet if not breastfed), give single dose of vitamin A, give zinc supplements daily for 14 days, follow-up in 5 days. Look for and treat any non-intestinal infection.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer (classify as SEVERE PERSISTENT DIARRHOEA) if persistent diarrhoea AND any dehydration is present, or child is <6 months, or there are other severe classifications. Treat dehydration before referral unless child has another severe classification.",
+      "medications": ["zinc", "vitamin-a", "oral-rehydration-salts"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Diarrhoea (PERSISTENT DIARRHOEA / SEVERE PERSISTENT DIARRHOEA)"
+      ]
+    },
+    {
+      "name": "Acute Ear Infection (Otitis Media)",
+      "symptoms": ["ear-pain", "ear-discharge", "fever", "irritability"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "Classify as ACUTE EAR INFECTION when pus is seen draining from the ear and discharge is reported for less than 14 days, OR when there is ear pain. Give oral amoxicillin 40 mg/kg twice daily for 5 days. Give paracetamol for pain. Dry the ear by wicking. Follow-up in 5 days.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer URGENTLY if tender swelling behind the ear (MASTOIDITIS) or high fever (38.5 C or above) with poor response.",
+      "medications": ["amoxicillin", "paracetamol"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Ear problem (ACUTE EAR INFECTION)"
+      ]
+    },
+    {
+      "name": "Streptococcal Pharyngitis",
+      "symptoms": ["sore-throat", "fever", "tonsillar-exudate", "tender-cervical-lymph-nodes", "absence-of-cough", "headache"],
+      "severity": "moderate",
+      "ageGroup": "all",
+      "treatment": "Probability of Group A Streptococcus is higher when Centor/McIsaac criteria are met: fever >=38 C, tonsillar exudates, tender anterior cervical lymphadenopathy, and absence of cough (add 1 point if age <15, subtract 1 if >=45). When clinically likely, give oral penicillin V 250 mg three times daily for 10 days, or amoxicillin 50 mg/kg once daily for 10 days. Give paracetamol for pain and fever. Where available, confirm with rapid antigen detection test before treating.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer if airway compromise, drooling, inability to swallow, peritonsillar abscess suspected, or symptoms persist after 48-72 hours of antibiotics.",
+      "medications": ["penicillin-v", "amoxicillin", "paracetamol"],
+      "sources": [
+        "BMJ Best Practice: Sore throat / Streptococcal pharyngitis (Centor and McIsaac scoring)",
+        "WHO IMCI adaptation booklets (throat problem classification, e.g. Afghanistan IMCI adaptation 2015)"
+      ]
+    },
+    {
+      "name": "Measles (Uncomplicated)",
+      "symptoms": ["fever", "rash", "cough", "runny-nose", "red-eyes"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "Classify as MEASLES when generalised rash AND one of: cough, runny nose, or red eyes. Give Vitamin A treatment (two doses, day 1 and day 2: 50,000 IU if <6 months, 100,000 IU if 6-11 months, 200,000 IU if 12 months and older). Give paracetamol for fever 38.5 C or above. Maintain feeding and fluids. Isolate from other susceptible children. Advise mother when to return immediately. Follow-up in 2 days.",
+      "referralNeeded": false,
+      "referralCriteria": "Reclassify if any general danger sign, clouding of cornea, deep/extensive mouth ulcers, pneumonia, stridor, or severe dehydration develops (see Severe Measles).",
+      "medications": ["vitamin-a", "paracetamol"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Fever section (MEASLES)",
+        "WHO Pocket Book of Hospital Care for Children, 2nd edition, 2013"
+      ]
+    },
+    {
+      "name": "Severe Measles with Complications",
+      "symptoms": ["fever", "rash", "cough", "red-eyes", "corneal-clouding", "mouth-ulcers", "general-danger-sign", "pus-from-eye"],
+      "severity": "severe",
+      "ageGroup": "child",
+      "treatment": "Give Vitamin A treatment. Give first dose of an appropriate antibiotic. If clouding of the cornea or pus draining from the eye, apply tetracycline eye ointment. Treat to prevent low blood sugar. Refer URGENTLY to hospital.",
+      "referralNeeded": true,
+      "referralCriteria": "Classify as SEVERE COMPLICATED MEASLES if measles now (or within last 3 months) AND any of: any general danger sign, clouding of cornea, deep or extensive mouth ulcers. Refer URGENTLY.",
+      "medications": ["vitamin-a", "amoxicillin", "tetracycline-eye-ointment"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Fever section (SEVERE COMPLICATED MEASLES)",
+        "WHO Pocket Book of Hospital Care for Children, 2nd edition, 2013, Chapter 6 (Measles)"
+      ]
+    },
+    {
+      "name": "Dengue Fever (Uncomplicated)",
+      "symptoms": ["fever", "headache", "muscle-pain", "joint-pain", "rash", "retro-orbital-pain", "nausea"],
+      "severity": "moderate",
+      "ageGroup": "all",
+      "treatment": "Per WHO 2009 classification: probable dengue is fever plus >=2 of nausea/vomiting, rash, aches and pains, positive tourniquet test, leukopenia, or any warning sign in a febrile patient living in or recently traveled to a dengue-endemic area. Manage with oral rehydration and paracetamol for fever and pain. DO NOT give NSAIDs (ibuprofen) or aspirin. Monitor for warning signs daily, especially in the critical phase (days 3-7).",
+      "referralNeeded": false,
+      "referralCriteria": "Refer if warning signs develop: abdominal pain or tenderness, persistent vomiting, mucosal bleeding, lethargy or restlessness, clinical fluid accumulation, liver enlargement >2 cm, or rising hematocrit with rapidly falling platelet count.",
+      "medications": ["paracetamol", "oral-rehydration-salts"],
+      "sources": [
+        "WHO Dengue: Guidelines for diagnosis, treatment, prevention and control, 2009",
+        "CDC Dengue Clinical Guidance (WHO 2009 classification)"
+      ]
+    },
+    {
+      "name": "Severe Dengue / Dengue with Warning Signs",
+      "symptoms": ["fever", "abdominal-pain", "persistent-vomiting", "mucosal-bleeding", "lethargy", "restlessness", "fluid-accumulation", "bloody-stool"],
+      "severity": "severe",
+      "ageGroup": "all",
+      "treatment": "Medical emergency. Begin isotonic IV fluid resuscitation (e.g. Ringer's lactate or normal saline) per WHO dengue protocol while arranging transfer. Avoid NSAIDs and aspirin. Refer URGENTLY to a facility that can monitor hematocrit and platelets and provide intensive supportive care.",
+      "referralNeeded": true,
+      "referralCriteria": "Refer URGENTLY for any warning sign or for severe dengue: severe plasma leakage (shock, respiratory distress with fluid accumulation), severe bleeding, or severe organ impairment (e.g. AST/ALT >=1000, impaired consciousness, heart involvement).",
+      "medications": ["ringers-lactate", "normal-saline", "paracetamol"],
+      "sources": [
+        "WHO Dengue: Guidelines for diagnosis, treatment, prevention and control, 2009",
+        "CDC Guidelines for Classifying Dengue (severe dengue criteria)"
+      ]
+    },
+    {
+      "name": "Suspected Tuberculosis (Cough >2 Weeks)",
+      "symptoms": ["cough", "fever", "night-sweats", "weight-loss", "fatigue", "loss-of-appetite"],
+      "severity": "moderate",
+      "ageGroup": "all",
+      "treatment": "Do not start anti-TB treatment empirically at CHW level. Refer for diagnostic evaluation: sputum smear microscopy and/or Xpert MTB/RIF (preferred where available), chest X-ray as indicated. In children, also assess for contact with a known TB case and for failure to thrive. While awaiting diagnosis, treat fever with paracetamol.",
+      "referralNeeded": true,
+      "referralCriteria": "Refer any person with cough of 2 weeks or more for TB evaluation. Per IMCI, refer a child with cough for more than 14 days for possible TB or asthma assessment. Lower threshold for PLHIV.",
+      "medications": ["paracetamol"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014 (cough >14 days, refer for TB or asthma assessment)",
+        "WHO consolidated guidelines on tuberculosis: Module 2 - Screening, 2021"
+      ]
+    },
+    {
+      "name": "Anemia (Moderate, Palmar Pallor)",
+      "symptoms": ["palmar-pallor", "fatigue", "weakness", "shortness-of-breath", "loss-of-appetite"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "Classify as ANAEMIA when some palmar pallor is present (palms paler than normal but not very pale). Give iron-folate (or iron syrup for young children) for 14 days, then reassess; continue for total of 2 months if anaemia persists. Give a single dose of mebendazole 500 mg (or albendazole 400 mg) if child is 1 year or older and has not had a dose in the previous 6 months. Counsel on iron-rich foods. Follow-up in 14 days.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer if anaemia persists after 2 months of iron therapy, if signs of severe anaemia develop, or if child is <2 months old.",
+      "medications": ["iron-folate", "mebendazole"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Malnutrition and anaemia (ANAEMIA)"
+      ]
+    },
+    {
+      "name": "Severe Anemia",
+      "symptoms": ["palmar-pallor", "severe-palmar-pallor", "fatigue", "shortness-of-breath", "fast-breathing", "weakness"],
+      "severity": "severe",
+      "ageGroup": "child",
+      "treatment": "Do not give iron at CHW level. Refer URGENTLY to hospital for haemoglobin testing and possible transfusion. If concurrent fever, follow malaria pre-referral protocol.",
+      "referralNeeded": true,
+      "referralCriteria": "Severe palmar pallor (palms appear very pale or white) is the IMCI criterion for SEVERE ANAEMIA - refer URGENTLY.",
+      "medications": [],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Malnutrition and anaemia (SEVERE ANAEMIA)",
+        "WHO Pocket Book of Hospital Care for Children, 2nd edition, 2013"
+      ]
+    },
+    {
+      "name": "Moderate Acute Malnutrition (MAM)",
+      "symptoms": ["weight-loss", "low-appetite", "muac-low", "fatigue"],
+      "severity": "moderate",
+      "ageGroup": "child",
+      "treatment": "Defined for children 6-59 months as MUAC >=11.5 cm and <12.5 cm, OR weight-for-height z-score >=-3 and <-2, with no bilateral pitting oedema. Counsel mother on feeding using the IMCI FOOD box: continue breastfeeding, give energy- and nutrient-dense complementary foods, and enrol in supplementary feeding programme if available. Reassess in 14-30 days. Treat any concurrent infection.",
+      "referralNeeded": false,
+      "referralCriteria": "Refer if child develops bilateral pitting oedema, MUAC falls below 11.5 cm, weight loss continues, or any medical complication develops.",
+      "medications": ["supplementary-food", "vitamin-a"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Malnutrition and anaemia",
+        "WHO/UNICEF Joint Statement on community-based management of severe acute malnutrition, 2007 (MUAC cut-offs)"
+      ]
+    },
+    {
+      "name": "Severe Acute Malnutrition (SAM)",
+      "symptoms": ["muac-low", "pitting-edema", "weight-loss", "severe-wasting", "inability-to-drink", "lethargy", "general-danger-sign"],
+      "severity": "severe",
+      "ageGroup": "child",
+      "treatment": "Defined as MUAC <11.5 cm in a child 6 months or older, OR weight-for-height z-score <-3, OR bilateral pitting oedema of both feet. Check for medical complications (any general danger sign, any severe classification, pneumonia with chest indrawing). If complicated: give first-dose antibiotic per Pocket Book, treat to prevent low blood sugar, keep warm, refer URGENTLY for inpatient care. If uncomplicated and child >=6 months: offer RUTF appetite test; if passes, manage as outpatient with RUTF and routine medications per national protocol.",
+      "referralNeeded": true,
+      "referralCriteria": "Refer URGENTLY any SAM with medical complication, bilateral pitting oedema of both feet, failed appetite (RUTF) test, infant <6 months with breastfeeding problem, or any general danger sign.",
+      "medications": ["rutf", "amoxicillin", "vitamin-a"],
+      "sources": [
+        "WHO IMCI Chart Booklet, March 2014, Malnutrition and anaemia (COMPLICATED / UNCOMPLICATED SEVERE ACUTE MALNUTRITION)",
+        "WHO Guideline: Updates on the management of severe acute malnutrition in infants and children, 2013",
+        "WHO Pocket Book of Hospital Care for Children, 2nd edition, 2013, Chapter 7"
+      ]
+    }
+  ]
+}
