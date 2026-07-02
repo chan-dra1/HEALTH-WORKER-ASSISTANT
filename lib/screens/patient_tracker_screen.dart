@@ -244,8 +244,18 @@ class _RecordVitalsSheet extends StatefulWidget {
 class _RecordVitalsSheetState extends State<_RecordVitalsSheet> {
   String _type = 'temperature';
   final _valueController = TextEditingController();
-  final _recordedByController =
-      TextEditingController(text: 'CHW');
+  final _recordedByController = TextEditingController(text: 'CHW');
+
+  @override
+  void initState() {
+    super.initState();
+    // Pre-fill with the name captured at first-run setup.
+    DatabaseService().getSetting('chw_name').then((name) {
+      if (mounted && name != null && name.isNotEmpty) {
+        _recordedByController.text = name;
+      }
+    });
+  }
 
   @override
   void dispose() {

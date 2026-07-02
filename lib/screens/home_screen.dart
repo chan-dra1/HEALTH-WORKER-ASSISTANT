@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import '../models/patient.dart';
 import '../services/database_service.dart';
+import 'patients_screen.dart';
 import 'symptom_checker_screen.dart';
 import 'dosage_calculator_screen.dart';
 import 'patient_tracker_screen.dart';
 import 'facilities_screen.dart';
 import 'about_screen.dart';
 
+// Home is a dashboard of six large picture-buttons. Nothing is hidden
+// behind menus: a first-time user sees every feature at once and each
+// tile says what it does in one line.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -15,315 +18,209 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Patient>> _patientsFuture;
+  String _chwName = '';
+  int _patientCount = 0;
 
   @override
   void initState() {
     super.initState();
-    _refreshPatients();
+    _loadHeader();
   }
 
-  void _refreshPatients() {
+  Future<void> _loadHeader() async {
+    final db = DatabaseService();
+    final name = await db.getSetting('chw_name') ?? '';
+    final patients = await db.getAllPatients();
+    if (!mounted) return;
     setState(() {
-      _patientsFuture = DatabaseService().getAllPatients();
+      _chwName = name;
+      _patientCount = patients.length;
     });
+  }
+
+  Future<void> _open(Widget screen) async {
+    await Navigator.push(
+        context, MaterialPageRoute(builder: (_) => screen));
+    _loadHeader(); // refresh count when coming back
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: _buildDrawer(context),
-      appBar: AppBar(
-        title: const Text('HealthWorker'),
-        backgroundColor: Colors.green[700],
-        foregroundColor: Colors.white,
-      ),
-      body: FutureBuilder<List<Patient>>(
-        future: _patientsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text('Error: ${snapshot.error}'));
-          }
-
-          final patients = snapshot.data ?? [];
-
-          if (patients.isEmpty) {
-            return Center(
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Greeting header
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
+              decoration: BoxDecoration(
+                color: Colors.green[700],
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(24),
+                  bottomRight: Radius.circular(24),
+                ),
+              ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(Icons.people, size: 80, color: Colors.grey),
-                  const SizedBox(height: 20),
-                  const Text('No patients yet',
-                      style: TextStyle(fontSize: 18)),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _showAddPatientDialog,
-                    child: const Text('Add First Patient'),
+                  Row(
+                    children: [
+                      const Icon(Icons.health_and_safety,
+                          color: Colors.white, size: 28),
+                      const SizedBox(width: 8),
+                      const Text('HealthWorker',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                      const Spacer(),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.white24,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(Icons.wifi_off,
+                                color: Colors.white, size: 14),
+                            SizedBox(width: 4),
+                            Text('offline',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    _chwName.isEmpty ? 'Welcome' : 'Hello, $_chwName',
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '$_patientCount patient${_patientCount == 1 ? '' : 's'} on this phone',
+                    style: const TextStyle(
+                        color: Colors.white70, fontSize: 14),
                   ),
                 ],
               ),
-            );
-          }
-
-          return ListView.builder(
-            itemCount: patients.length,
-            itemBuilder: (context, index) {
-              final patient = patients[index];
-              return Card(
-                margin: const EdgeInsets.symmetric(
-                    horizontal: 8, vertical: 4),
-                child: ListTile(
-                  title: Text(patient.fullName),
-                  subtitle: Text(
-                      '${patient.age} years old  |  ${patient.village}'),
-                  trailing: const Icon(Icons.arrow_forward),
-                  onTap: () {
-                    // TODO: Navigate to patient detail screen
-                  },
-                ),
-              );
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddPatientDialog,
-        backgroundColor: Colors.green[700],
-        foregroundColor: Colors.white,
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-
-  void _showAddPatientDialog() {
-    final firstNameController = TextEditingController();
-    final lastNameController = TextEditingController();
-    final phoneController = TextEditingController();
-    final villageController = TextEditingController();
-    String? selectedGender;
-    DateTime? selectedDOB;
-
-    showDialog(
-      context: context,
-      builder: (dialogContext) {
-        // StatefulBuilder so the dialog itself rebuilds when the user
-        // picks a gender or date of birth.
-        return StatefulBuilder(
-          builder: (context, setDialogState) {
-            return AlertDialog(
-              title: const Text('Add Patient'),
-              content: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextField(
-                      controller: firstNameController,
-                      decoration:
-                          const InputDecoration(labelText: 'First Name'),
-                    ),
-                    TextField(
-                      controller: lastNameController,
-                      decoration:
-                          const InputDecoration(labelText: 'Last Name'),
-                    ),
-                    TextField(
-                      controller: phoneController,
-                      decoration:
-                          const InputDecoration(labelText: 'Phone Number'),
-                      keyboardType: TextInputType.phone,
-                    ),
-                    TextField(
-                      controller: villageController,
-                      decoration:
-                          const InputDecoration(labelText: 'Village'),
-                    ),
-                    const SizedBox(height: 10),
-                    DropdownButton<String>(
-                      hint: const Text('Select Gender'),
-                      value: selectedGender,
-                      isExpanded: true,
-                      items: const ['Male', 'Female', 'Other']
-                          .map((g) => DropdownMenuItem(
-                                value: g.toLowerCase(),
-                                child: Text(g),
-                              ))
-                          .toList(),
-                      onChanged: (val) {
-                        setDialogState(() => selectedGender = val);
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    ElevatedButton(
-                      onPressed: () async {
-                        final date = await showDatePicker(
-                          context: context,
-                          initialDate: selectedDOB ?? DateTime(2000),
-                          firstDate: DateTime(1900),
-                          lastDate: DateTime.now(),
-                        );
-                        if (date != null) {
-                          setDialogState(() => selectedDOB = date);
-                        }
-                      },
-                      child: Text(selectedDOB == null
-                          ? 'Select Date of Birth'
-                          : selectedDOB!
-                              .toLocal()
-                              .toString()
-                              .split(' ')[0]),
-                    ),
-                  ],
-                ),
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(dialogContext),
-                  child: const Text('Cancel'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (firstNameController.text.isEmpty ||
-                        selectedGender == null ||
-                        selectedDOB == null) {
-                      ScaffoldMessenger.of(dialogContext).showSnackBar(
-                        const SnackBar(
-                            content: Text('Please fill all fields')),
-                      );
-                      return;
-                    }
-                    final patient = Patient(
-                      id: DateTime.now()
-                          .millisecondsSinceEpoch
-                          .toString(),
-                      firstName: firstNameController.text,
-                      lastName: lastNameController.text,
-                      dateOfBirth: selectedDOB!,
-                      gender: selectedGender!,
-                      phone: phoneController.text,
-                      village: villageController.text,
-                      facilityName: 'Local Clinic',
-                    );
-                    await DatabaseService().insertPatient(patient);
-                    if (!mounted) return;
-                    Navigator.pop(dialogContext);
-                    _refreshPatients();
-                  },
-                  child: const Text('Save'),
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
-  }
-
-  Widget _buildDrawer(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            decoration: BoxDecoration(color: Colors.green[700]),
-            child: const Align(
-              alignment: Alignment.bottomLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
+            ),
+            // Feature tiles
+            Expanded(
+              child: GridView.count(
+                padding: const EdgeInsets.all(16),
+                crossAxisCount: 2,
+                mainAxisSpacing: 12,
+                crossAxisSpacing: 12,
+                childAspectRatio: 0.95,
                 children: [
-                  Icon(Icons.health_and_safety,
-                      color: Colors.white, size: 36),
-                  SizedBox(height: 6),
-                  Text('HealthWorker',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  Text('v0.1 · works offline',
-                      style:
-                          TextStyle(color: Colors.white70, fontSize: 12)),
+                  _Tile(
+                    icon: Icons.people,
+                    color: Colors.blue,
+                    title: 'Patients',
+                    subtitle: 'Add and view records',
+                    onTap: () => _open(const PatientsScreen()),
+                  ),
+                  _Tile(
+                    icon: Icons.checklist,
+                    color: Colors.orange,
+                    title: 'Symptoms',
+                    subtitle: 'Check possible conditions',
+                    onTap: () => _open(const SymptomCheckerScreen()),
+                  ),
+                  _Tile(
+                    icon: Icons.medication,
+                    color: Colors.purple,
+                    title: 'Medicine dose',
+                    subtitle: 'Safe dose by weight',
+                    onTap: () => _open(const DosageCalculatorScreen()),
+                  ),
+                  _Tile(
+                    icon: Icons.monitor_heart,
+                    color: Colors.red,
+                    title: 'Vitals',
+                    subtitle: 'Temperature, BP, weight',
+                    onTap: () => _open(const PatientTrackerScreen()),
+                  ),
+                  _Tile(
+                    icon: Icons.location_city,
+                    color: Colors.teal,
+                    title: 'Facilities',
+                    subtitle: 'Your local clinics',
+                    onTap: () => _open(const FacilitiesScreen()),
+                  ),
+                  _Tile(
+                    icon: Icons.info_outline,
+                    color: Colors.blueGrey,
+                    title: 'About & limits',
+                    subtitle: 'What this app is not',
+                    onTap: () => _open(const AboutScreen()),
+                  ),
                 ],
               ),
             ),
-          ),
-          _navTile(
-            icon: Icons.people,
-            label: 'Patients',
-            onTap: () => Navigator.pop(context),
-          ),
-          _navTile(
-            icon: Icons.checklist,
-            label: 'Symptom checker',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => const SymptomCheckerScreen()));
-            },
-          ),
-          _navTile(
-            icon: Icons.medication_outlined,
-            label: 'Dosage calculator',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => const DosageCalculatorScreen()));
-            },
-          ),
-          _navTile(
-            icon: Icons.monitor_heart,
-            label: 'Vitals tracker',
-            onTap: () async {
-              Navigator.pop(context);
-              await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => const PatientTrackerScreen()));
-              _refreshPatients();
-            },
-          ),
-          _navTile(
-            icon: Icons.location_city,
-            label: 'Health facilities',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => const FacilitiesScreen()));
-            },
-          ),
-          const Divider(),
-          _navTile(
-            icon: Icons.info_outline,
-            label: 'About & limits',
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const AboutScreen()));
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _navTile({
-    required IconData icon,
-    required String label,
-    required VoidCallback onTap,
-  }) =>
-      ListTile(
-        leading: Icon(icon, color: Colors.green[700]),
-        title: Text(label),
+class _Tile extends StatelessWidget {
+  final IconData icon;
+  final MaterialColor color;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  const _Tile({
+    required this.icon,
+    required this.color,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: color[50],
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
         onTap: onTap,
-      );
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: color[600],
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, color: Colors.white, size: 30),
+              ),
+              const Spacer(),
+              Text(title,
+                  style: TextStyle(
+                      color: color[900],
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold)),
+              const SizedBox(height: 2),
+              Text(subtitle,
+                  style: TextStyle(color: color[800], fontSize: 12)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

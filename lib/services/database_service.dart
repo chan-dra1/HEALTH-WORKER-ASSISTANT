@@ -24,7 +24,7 @@ class DatabaseService {
 
     return openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _createTables,
       onUpgrade: _upgradeTables,
     );
@@ -35,6 +35,18 @@ class DatabaseService {
     if (oldVersion < 2) {
       await _createFacilitiesTable(db);
     }
+    if (oldVersion < 3) {
+      await _createSettingsTable(db);
+    }
+  }
+
+  Future<void> _createSettingsTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE settings (
+        key TEXT PRIMARY KEY,
+        value TEXT NOT NULL
+      )
+    ''');
   }
 
   Future<void> _createFacilitiesTable(Database db) async {
@@ -84,6 +96,29 @@ class DatabaseService {
     ''');
 
     await _createFacilitiesTable(db);
+    await _createSettingsTable(db);
+  }
+
+  // SETTINGS (simple key-value store)
+
+  Future<String?> getSetting(String key) async {
+    final db = await database;
+    final rows = await db.query(
+      'settings',
+      where: 'key = ?',
+      whereArgs: [key],
+    );
+    if (rows.isEmpty) return null;
+    return rows.first['value'] as String;
+  }
+
+  Future<void> setSetting(String key, String value) async {
+    final db = await database;
+    await db.insert(
+      'settings',
+      {'key': key, 'value': value},
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   // PATIENT OPERATIONS
