@@ -2,6 +2,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/patient.dart';
 import '../models/observation.dart';
+import '../models/facility.dart';
 
 class DatabaseService {
   static final DatabaseService _instance = DatabaseService._internal();
@@ -23,9 +24,32 @@ class DatabaseService {
 
     return openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _createTables,
+      onUpgrade: _upgradeTables,
     );
+  }
+
+  Future<void> _upgradeTables(
+      Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await _createFacilitiesTable(db);
+    }
+  }
+
+  Future<void> _createFacilitiesTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE facilities (
+        id TEXT PRIMARY KEY,
+        name TEXT NOT NULL,
+        type TEXT NOT NULL,
+        phone TEXT NOT NULL,
+        village TEXT NOT NULL,
+        directions TEXT,
+        services TEXT,
+        createdAt TEXT NOT NULL
+      )
+    ''');
   }
 
   Future<void> _createTables(Database db, int version) async {
@@ -58,6 +82,8 @@ class DatabaseService {
         FOREIGN KEY (patientId) REFERENCES patients(id)
       )
     ''');
+
+    await _createFacilitiesTable(db);
   }
 
   // PATIENT OPERATIONS
@@ -123,6 +149,28 @@ class DatabaseService {
       orderBy: 'recordedAt DESC',
     );
     return maps.map(Observation.fromJson).toList();
+  }
+
+  // FACILITY OPERATIONS
+
+  Future<void> insertFacility(Facility facility) async {
+    final db = await database;
+    await db.insert(
+      'facilities',
+      facility.toJson(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  Future<List<Facility>> getAllFacilities() async {
+    final db = await database;
+    final maps = await db.query('facilities', orderBy: 'name ASC');
+    return maps.map(Facility.fromJson).toList();
+  }
+
+  Future<void> deleteFacility(String id) async {
+    final db = await database;
+    await db.delete('facilities', where: 'id = ?', whereArgs: [id]);
   }
 
   // Drop the on-disk database file (used by tests / dev reset flows).

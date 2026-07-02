@@ -6,7 +6,10 @@
     {
       "name": "Paracetamol",
       "type": "analgesic-antipyretic",
-      "indications": ["fever", "mild-to-moderate-pain"],
+      "indications": [
+        "fever",
+        "mild-to-moderate-pain"
+      ],
       "mgPerKg": 15,
       "dosageByWeight": {
         "5.0": 75,
@@ -23,7 +26,10 @@
       "maxDailyDose": "60 mg/kg/day; adult max 4 g/day",
       "route": "oral or rectal",
       "ageRestrictions": "Safe from neonate at 10 mg/kg/dose. Use lower dose in jaundice or liver disease.",
-      "sideEffects": ["hepatotoxicity in overdose", "rare rash"],
+      "sideEffects": [
+        "hepatotoxicity in overdose",
+        "rare rash"
+      ],
       "contraindications": "Severe hepatic impairment. Do not exceed 60 mg/kg/day.",
       "notes": "Syrup 120 mg/5 mL; tablet 500 mg. Round to nearest 2.5 mL of syrup. First-line antipyretic in children.",
       "sources": [
@@ -34,7 +40,11 @@
     {
       "name": "Ibuprofen",
       "type": "nsaid-analgesic-antipyretic",
-      "indications": ["fever", "pain", "inflammation"],
+      "indications": [
+        "fever",
+        "pain",
+        "inflammation"
+      ],
       "mgPerKg": 7.5,
       "dosageByWeight": {
         "5.0": 40,
@@ -51,7 +61,11 @@
       "maxDailyDose": "30 mg/kg/day in children; adult max 1200 mg/day OTC, 2400 mg/day prescription",
       "route": "oral",
       "ageRestrictions": "Not recommended under 3 months or under 5 kg. Avoid in dehydration.",
-      "sideEffects": ["gastric irritation", "GI bleeding", "renal impairment with dehydration"],
+      "sideEffects": [
+        "gastric irritation",
+        "GI bleeding",
+        "renal impairment with dehydration"
+      ],
       "contraindications": "Active GI bleed, severe dehydration, renal impairment, known NSAID allergy, severe asthma triggered by NSAIDs, dengue (bleeding risk).",
       "notes": "Suspension 100 mg/5 mL; tablet 200 mg or 400 mg. Give with food. Avoid in suspected dengue or severe diarrhoea.",
       "sources": [
@@ -62,7 +76,12 @@
     {
       "name": "Amoxicillin",
       "type": "antibiotic-penicillin",
-      "indications": ["pneumonia", "otitis media", "acute bacterial sinusitis", "uncomplicated UTI"],
+      "indications": [
+        "pneumonia",
+        "otitis media",
+        "acute bacterial sinusitis",
+        "uncomplicated UTI"
+      ],
       "mgPerKg": 40,
       "dosageByWeight": {
         "5.0": 200,
@@ -75,13 +94,18 @@
         "50.0": 1000
       },
       "unit": "mg",
-      "frequency": "twice daily for 5 days (pneumonia per WHO); three times daily for other indications",
+      "frequency": "twice daily for 5 days (40 mg/kg/dose, WHO pneumonia regimen)",
       "maxDailyDose": "80-90 mg/kg/day; adult max 3 g/day in most indications",
       "route": "oral",
       "ageRestrictions": "Safe from neonate with appropriate dose adjustment. Reduce dose in severe renal impairment.",
-      "sideEffects": ["diarrhoea", "rash", "candidiasis", "rare anaphylaxis"],
+      "sideEffects": [
+        "diarrhoea",
+        "rash",
+        "candidiasis",
+        "rare anaphylaxis"
+      ],
       "contraindications": "Known penicillin allergy. Caution with infectious mononucleosis (high rash incidence).",
-      "notes": "Dispersible tablet 250 mg; suspension 125 mg/5 mL or 250 mg/5 mL. WHO first-line for non-severe fast-breathing pneumonia: 40 mg/kg/dose twice daily x 5 days. Round to nearest tablet.",
+      "notes": "Dispersible tablet 250 mg; suspension 125 mg/5 mL or 250 mg/5 mL. WHO first-line for non-severe fast-breathing pneumonia: 40 mg/kg/dose twice daily x 5 days. Round to nearest tablet. The 40 mg/kg per-dose figure is for TWICE-daily dosing only (80 mg/kg/day). Do not give this dose three times daily.",
       "sources": [
         "WHO Pocket Book of Hospital Care for Children, 2nd ed. (2013), Ch. 4 Cough/difficulty in breathing; Annex 2",
         "WHO Revised Classification and Treatment of Pneumonia in Children at Health Facilities (2014)",
@@ -91,7 +115,11 @@
     {
       "name": "Co-trimoxazole (Sulfamethoxazole-Trimethoprim)",
       "type": "antibiotic",
-      "indications": ["UTI", "Pneumocystis pneumonia prophylaxis (HIV)", "alternative for pneumonia where amoxicillin unavailable"],
+      "indications": [
+        "UTI",
+        "Pneumocystis pneumonia prophylaxis (HIV)",
+        "alternative for pneumonia where amoxicillin unavailable"
+      ],
       "mgPerKg": 4,
       "dosageByWeight": {
         "5.0": 20,
@@ -108,7 +136,12 @@
       "maxDailyDose": "Adult: 320 mg TMP / 1600 mg SMX per day in 2 divided doses",
       "route": "oral",
       "ageRestrictions": "Avoid in infants under 6 weeks (risk of kernicterus). Use with caution in G6PD deficiency.",
-      "sideEffects": ["rash (including Stevens-Johnson)", "GI upset", "haemolysis in G6PD deficiency", "bone marrow suppression"],
+      "sideEffects": [
+        "rash (including Stevens-Johnson)",
+        "GI upset",
+        "haemolysis in G6PD deficiency",
+        "bone marrow suppression"
+      ],
       "contraindications": "Sulfa allergy, severe hepatic or renal impairment, infants under 6 weeks, last trimester of pregnancy.",
       "notes": "Dose expressed as trimethoprim (TMP) component; standard 5:1 ratio with sulfamethoxazole (SMX). Paediatric suspension 40 mg TMP + 200 mg SMX per 5 mL. Adult single-strength tablet 80 mg TMP + 400 mg SMX.",
       "sources": [
@@ -119,7 +152,10 @@
     {
       "name": "Oral Rehydration Salts (ORS, low-osmolarity)",
       "type": "rehydration",
-      "indications": ["acute diarrhoea with dehydration", "prevention of dehydration"],
+      "indications": [
+        "acute diarrhoea with dehydration",
+        "prevention of dehydration"
+      ],
       "mgPerKg": 75,
       "dosageByWeight": {
         "5.0": 375,
@@ -136,7 +172,9 @@
       "maxDailyDose": "Adjust to ongoing losses; no fixed upper limit, but watch for fluid overload in cardiac or renal disease.",
       "route": "oral or nasogastric",
       "ageRestrictions": "Safe at all ages. For infants under 6 months, continue breastfeeding alongside ORS.",
-      "sideEffects": ["vomiting if given too fast (slow the rate)"],
+      "sideEffects": [
+        "vomiting if given too fast (slow the rate)"
+      ],
       "contraindications": "Severe dehydration with shock (use IV fluids first), persistent vomiting unresponsive to slow administration, intestinal obstruction, ileus.",
       "notes": "Low-osmolarity formula (245 mOsm/L). Values shown are mL of reconstituted solution for Plan B (75 mL/kg over 4 h). Continue breastfeeding. Give in small sips with a spoon or cup. Add zinc supplementation.",
       "sources": [
@@ -148,7 +186,9 @@
     {
       "name": "Zinc sulfate",
       "type": "diarrhoea-adjunct",
-      "indications": ["acute diarrhoea (adjunct to ORS)"],
+      "indications": [
+        "acute diarrhoea (adjunct to ORS)"
+      ],
       "mgPerKg": 0,
       "dosageByWeight": {
         "5.0": 10,
@@ -165,19 +205,25 @@
       "maxDailyDose": "20 mg/day in children 6 months and older; 10 mg/day under 6 months",
       "route": "oral",
       "ageRestrictions": "Under 6 months: 10 mg/day (approx weight under 7 kg). 6 months and older: 20 mg/day.",
-      "sideEffects": ["vomiting (uncommon, transient)", "metallic taste"],
+      "sideEffects": [
+        "vomiting (uncommon, transient)",
+        "metallic taste"
+      ],
       "contraindications": "None at recommended doses.",
-      "notes": "Dispersible tablet 20 mg. For infants under 6 months give half a 20 mg tablet (10 mg) dispersed in breast milk or ORS. Continue full course even after diarrhoea stops.",
+      "notes": "Dispersible tablet 20 mg. For infants under 6 months give half a 20 mg tablet (10 mg) dispersed in breast milk or ORS. Continue full course even after diarrhoea stops. AGE-BASED DOSING: 10 mg once daily under 6 months; 20 mg once daily 6 months and older, for 10-14 days (WHO/UNICEF).",
       "sources": [
         "WHO Pocket Book of Hospital Care for Children, 2nd ed. (2013), Ch. 5 Diarrhoea",
         "WHO/UNICEF Joint Statement: Clinical management of acute diarrhoea (2004)",
         "WHO Model List of Essential Medicines for Children, 9th list (2023), section 17.5.2"
-      ]
+      ],
+      "ageBased": true
     },
     {
       "name": "Artemether-Lumefantrine (AL)",
       "type": "antimalarial",
-      "indications": ["uncomplicated Plasmodium falciparum malaria"],
+      "indications": [
+        "uncomplicated Plasmodium falciparum malaria"
+      ],
       "mgPerKg": 0,
       "dosageByWeight": {
         "5.0": 20,
@@ -194,7 +240,13 @@
       "maxDailyDose": "4 tablets per dose (adult dose); do not repeat course within 1 month except on clinician advice",
       "route": "oral, with fat (milk, breast milk, or food) to ensure absorption",
       "ageRestrictions": "Use from 5 kg body weight. Not recommended in first trimester of pregnancy unless no alternative.",
-      "sideEffects": ["vomiting", "headache", "dizziness", "QT prolongation (rare)", "anorexia"],
+      "sideEffects": [
+        "vomiting",
+        "headache",
+        "dizziness",
+        "QT prolongation (rare)",
+        "anorexia"
+      ],
       "contraindications": "Severe malaria (use parenteral artesunate). Known cardiac arrhythmia or QT prolongation. First trimester pregnancy (relative).",
       "notes": "Tablet 20 mg artemether + 120 mg lumefantrine. Weight bands: 5 to under 15 kg = 1 tab/dose; 15 to under 25 kg = 2 tabs/dose; 25 to under 35 kg = 3 tabs/dose; 35 kg or more = 4 tabs/dose. Repeat the dose if vomited within 30 min. Give with fatty food to improve absorption.",
       "sources": [
@@ -206,7 +258,12 @@
     {
       "name": "Mebendazole",
       "type": "anthelmintic",
-      "indications": ["ascariasis", "trichuriasis", "hookworm", "enterobiasis"],
+      "indications": [
+        "ascariasis",
+        "trichuriasis",
+        "hookworm",
+        "enterobiasis"
+      ],
       "mgPerKg": 0,
       "dosageByWeight": {
         "5.0": 0,
@@ -223,7 +280,11 @@
       "maxDailyDose": "500 mg",
       "route": "oral",
       "ageRestrictions": "Use from 12 months of age. Avoid in first trimester of pregnancy.",
-      "sideEffects": ["mild abdominal discomfort", "diarrhoea", "rare rash"],
+      "sideEffects": [
+        "mild abdominal discomfort",
+        "diarrhoea",
+        "rare rash"
+      ],
       "contraindications": "Under 12 months. First trimester of pregnancy. Known hypersensitivity.",
       "notes": "Chewable tablet 500 mg or 100 mg. Single 500 mg dose is the WHO preventive chemotherapy standard for children 12 months and older. Children under 1 year: do not give (use community deworming programme guidance).",
       "sources": [
@@ -235,7 +296,12 @@
     {
       "name": "Albendazole",
       "type": "anthelmintic",
-      "indications": ["ascariasis", "trichuriasis", "hookworm", "strongyloidiasis"],
+      "indications": [
+        "ascariasis",
+        "trichuriasis",
+        "hookworm",
+        "strongyloidiasis"
+      ],
       "mgPerKg": 0,
       "dosageByWeight": {
         "5.0": 0,
@@ -252,7 +318,11 @@
       "maxDailyDose": "400 mg single dose",
       "route": "oral",
       "ageRestrictions": "12-23 months: 200 mg (half tablet). 24 months and older: 400 mg. Avoid in first trimester of pregnancy.",
-      "sideEffects": ["mild GI upset", "headache", "rare transaminitis with prolonged courses"],
+      "sideEffects": [
+        "mild GI upset",
+        "headache",
+        "rare transaminitis with prolonged courses"
+      ],
       "contraindications": "Under 12 months. First trimester of pregnancy. Known hypersensitivity.",
       "notes": "Chewable tablet 400 mg (scored). Children 12-23 months receive half tablet (200 mg).",
       "sources": [
@@ -264,7 +334,11 @@
     {
       "name": "Vitamin A",
       "type": "micronutrient-supplement",
-      "indications": ["vitamin A deficiency prevention", "measles", "xerophthalmia"],
+      "indications": [
+        "vitamin A deficiency prevention",
+        "measles",
+        "xerophthalmia"
+      ],
       "mgPerKg": 0,
       "dosageByWeight": {
         "5.0": 50000,
@@ -281,19 +355,29 @@
       "maxDailyDose": "Per age band; do not repeat preventive dose within 1 month.",
       "route": "oral",
       "ageRestrictions": "Under 6 months: 50,000 IU. 6-11 months: 100,000 IU. 12 months and older: 200,000 IU.",
-      "sideEffects": ["transient nausea", "vomiting", "headache", "bulging fontanelle (transient)", "diarrhoea in 3-7%"],
+      "sideEffects": [
+        "transient nausea",
+        "vomiting",
+        "headache",
+        "bulging fontanelle (transient)",
+        "diarrhoea in 3-7%"
+      ],
       "contraindications": "Hypervitaminosis A. Pregnancy (high-dose). Recent high-dose vitamin A within the past month.",
-      "notes": "Capsules 50,000 / 100,000 / 200,000 IU. For measles, give a second dose the next day and a third at 2-4 weeks if eye signs of vitamin A deficiency are present.",
+      "notes": "Capsules 50,000 / 100,000 / 200,000 IU. For measles, give a second dose the next day and a third at 2-4 weeks if eye signs of vitamin A deficiency are present. AGE-BASED DOSING: 50,000 IU under 6 months; 100,000 IU 6-11 months; 200,000 IU 12 months and older (WHO). Never dose by weight.",
       "sources": [
         "WHO Guideline: Vitamin A supplementation in infants and children 6-59 months of age (2011)",
         "WHO Pocket Book of Hospital Care for Children, 2nd ed. (2013), Ch. 6 Measles, Annex 2",
         "WHO Model List of Essential Medicines for Children, 9th list (2023), section 27.5"
-      ]
+      ],
+      "ageBased": true
     },
     {
       "name": "Ferrous Sulfate",
       "type": "micronutrient-supplement",
-      "indications": ["iron deficiency anaemia", "iron supplementation"],
+      "indications": [
+        "iron deficiency anaemia",
+        "iron supplementation"
+      ],
       "mgPerKg": 3,
       "dosageByWeight": {
         "5.0": 15,
@@ -310,7 +394,13 @@
       "maxDailyDose": "3-6 mg/kg/day elemental iron, max 60 mg/day in young children; adult 60-120 mg/day",
       "route": "oral",
       "ageRestrictions": "From 6 months of age for treatment of anaemia. Do not give to children with severe acute malnutrition until stabilisation phase complete.",
-      "sideEffects": ["dark stools (expected)", "constipation or diarrhoea", "nausea", "abdominal pain", "tooth staining (syrup)"],
+      "sideEffects": [
+        "dark stools (expected)",
+        "constipation or diarrhoea",
+        "nausea",
+        "abdominal pain",
+        "tooth staining (syrup)"
+      ],
       "contraindications": "Haemochromatosis, haemoglobinopathies with iron overload, severe acute malnutrition in stabilisation phase, active infection in some malaria-endemic settings (per local guidance).",
       "notes": "Drops 25 mg elemental iron per mL; tablet 60 mg elemental iron (200 mg ferrous sulfate). Dose expressed as elemental iron. Continue for 3 months after haemoglobin normalises to replenish stores. Rinse mouth after syrup to reduce staining.",
       "sources": [
@@ -322,7 +412,12 @@
     {
       "name": "Metronidazole",
       "type": "antiprotozoal-antibiotic",
-      "indications": ["giardiasis", "amoebiasis", "anaerobic bacterial infection", "bacterial vaginosis"],
+      "indications": [
+        "giardiasis",
+        "amoebiasis",
+        "anaerobic bacterial infection",
+        "bacterial vaginosis"
+      ],
       "mgPerKg": 7.5,
       "dosageByWeight": {
         "5.0": 40,
@@ -339,7 +434,13 @@
       "maxDailyDose": "Children 30 mg/kg/day; adult max 2 g/day",
       "route": "oral (or IV for severe infections)",
       "ageRestrictions": "Use from neonate with adjusted dose. Avoid alcohol during and 48 h after course.",
-      "sideEffects": ["metallic taste", "nausea", "dark urine", "peripheral neuropathy with prolonged use", "disulfiram-like reaction with alcohol"],
+      "sideEffects": [
+        "metallic taste",
+        "nausea",
+        "dark urine",
+        "peripheral neuropathy with prolonged use",
+        "disulfiram-like reaction with alcohol"
+      ],
       "contraindications": "First trimester of pregnancy (relative). Known hypersensitivity. Concurrent alcohol use.",
       "notes": "Suspension 200 mg/5 mL (as benzoate); tablet 200 mg or 400 mg. For amoebic dysentery, dose is higher (10 mg/kg three times daily) per WHO Pocket Book. Avoid alcohol.",
       "sources": [
@@ -350,7 +451,11 @@
     {
       "name": "Ciprofloxacin",
       "type": "antibiotic-fluoroquinolone",
-      "indications": ["bloody diarrhoea / suspected Shigella dysentery", "complicated UTI", "typhoid (where susceptible)"],
+      "indications": [
+        "bloody diarrhoea / suspected Shigella dysentery",
+        "complicated UTI",
+        "typhoid (where susceptible)"
+      ],
       "mgPerKg": 15,
       "dosageByWeight": {
         "5.0": 75,
@@ -367,7 +472,14 @@
       "maxDailyDose": "Children: 30 mg/kg/day, max 1 g/day. Adult: 1.5 g/day oral.",
       "route": "oral",
       "ageRestrictions": "Reserved antibiotic. Use when bloody diarrhoea persists or when Shigella is suspected/confirmed. Theoretical risk of arthropathy in growing children: benefits outweigh risk in serious infection.",
-      "sideEffects": ["nausea", "diarrhoea", "tendinopathy (rare)", "QT prolongation", "arthropathy (theoretical)", "C. difficile colitis"],
+      "sideEffects": [
+        "nausea",
+        "diarrhoea",
+        "tendinopathy (rare)",
+        "QT prolongation",
+        "arthropathy (theoretical)",
+        "C. difficile colitis"
+      ],
       "contraindications": "Known fluoroquinolone allergy. Caution in epilepsy. Avoid concurrent dairy or antacids within 2 h.",
       "notes": "Tablet 250 mg or 500 mg; suspension 250 mg/5 mL. WHO first-line for shigellosis: 15 mg/kg twice daily for 3 days. Do not give with milk, antacids or iron at the same time.",
       "sources": [
@@ -379,15 +491,19 @@
     {
       "name": "Erythromycin",
       "type": "antibiotic-macrolide",
-      "indications": ["pertussis (whooping cough)", "diphtheria carrier eradication", "alternative for penicillin allergy in respiratory/skin infection"],
+      "indications": [
+        "pertussis (whooping cough)",
+        "diphtheria carrier eradication",
+        "alternative for penicillin allergy in respiratory/skin infection"
+      ],
       "mgPerKg": 12.5,
       "dosageByWeight": {
         "5.0": 60,
         "10.0": 125,
         "15.0": 190,
         "20.0": 250,
-        "25.0": 250,
-        "30.0": 250,
+        "25.0": 312,
+        "30.0": 375,
         "40.0": 500,
         "50.0": 500
       },
@@ -396,7 +512,14 @@
       "maxDailyDose": "50 mg/kg/day; adult max 2 g/day",
       "route": "oral",
       "ageRestrictions": "Caution in neonates (risk of infantile hypertrophic pyloric stenosis with prolonged use, especially under 2 weeks).",
-      "sideEffects": ["nausea", "vomiting", "abdominal cramps", "diarrhoea", "QT prolongation (rare)", "cholestatic hepatitis (rare, with estolate)"],
+      "sideEffects": [
+        "nausea",
+        "vomiting",
+        "abdominal cramps",
+        "diarrhoea",
+        "QT prolongation (rare)",
+        "cholestatic hepatitis (rare, with estolate)"
+      ],
       "contraindications": "Known macrolide allergy. Concurrent use with QT-prolonging drugs. Severe hepatic impairment.",
       "notes": "Tablet 250 mg; suspension 125 mg/5 mL or 250 mg/5 mL. Pertussis treatment is 14 days. Take with food if GI upset.",
       "sources": [
@@ -407,7 +530,12 @@
     {
       "name": "Amoxicillin-Clavulanate",
       "type": "antibiotic-penicillin-combination",
-      "indications": ["non-responding pneumonia", "complicated otitis media", "human/animal bites", "complicated sinusitis"],
+      "indications": [
+        "non-responding pneumonia",
+        "complicated otitis media",
+        "human/animal bites",
+        "complicated sinusitis"
+      ],
       "mgPerKg": 25,
       "dosageByWeight": {
         "5.0": 125,
@@ -424,7 +552,13 @@
       "maxDailyDose": "50 mg/kg/day amoxicillin component standard; up to 90 mg/kg/day for severe infections. Adult max 1750 mg/day amoxicillin component (875 mg twice daily).",
       "route": "oral",
       "ageRestrictions": "Safe from neonate with dose adjustment. Reduce dose in significant renal impairment.",
-      "sideEffects": ["diarrhoea (more than amoxicillin alone)", "rash", "candidiasis", "cholestatic jaundice (rare)", "rare anaphylaxis"],
+      "sideEffects": [
+        "diarrhoea (more than amoxicillin alone)",
+        "rash",
+        "candidiasis",
+        "cholestatic jaundice (rare)",
+        "rare anaphylaxis"
+      ],
       "contraindications": "Known penicillin allergy. Previous amoxicillin-clavulanate-associated jaundice or hepatic dysfunction.",
       "notes": "Doses expressed as amoxicillin component. Common ratios 4:1 or 7:1 (paediatric suspensions) and 14:1 (high-dose). Standard suspension 400 mg amoxicillin + 57 mg clavulanate per 5 mL. Always check the ratio on the local product.",
       "sources": [

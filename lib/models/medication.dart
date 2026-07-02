@@ -14,6 +14,12 @@ class Medication {
   final String? notes;
   final List<String> sources;
 
+  // True for drugs dosed by AGE, not weight (vitamin A, zinc). For these
+  // the app must never compute a weight-based dose: a heavy young infant
+  // would be pushed into a higher band (e.g. 100,000 IU vitamin A at
+  // 5 months when WHO says 50,000 IU under 6 months).
+  final bool ageBased;
+
   Medication({
     required this.name,
     required this.type,
@@ -29,6 +35,7 @@ class Medication {
     this.ageRestrictions,
     this.notes,
     this.sources = const [],
+    this.ageBased = false,
   });
 
   factory Medication.fromJson(Map<String, dynamic> json) {
@@ -54,55 +61,88 @@ class Medication {
       contraindications: json['contraindications'] as String? ?? '',
       notes: json['notes'] as String?,
       sources: List<String>.from((json['sources'] as List?) ?? const []),
+      ageBased: json['ageBased'] as bool? ?? false,
     );
   }
 
-  // Calculate dose for a weight. Prefers mg/kg formula when available
-  // (most clinically accurate), falls back to the lookup table.
+  // Highest dose in the weight table — the per-drug ceiling for the
+  // formula path. The table encodes each drug's true adult/maximum dose
+  // (ibuprofen 400, ciprofloxacin 500, ferrous sulfate 60...), which a
+  // flat global cap cannot.
+  double? get _tableMax {
+    if (dosageByWeight.isEmpty) return null;
+    return dosageByWeight.values.reduce((a, b) => a > b ? a : b);
+  }
+
+  double? get _tableMinWeight {
+    if (dosageByWeight.isEmpty) return null;
+    return dosageByWeight.keys
+        .map(double.parse)
+        .reduce((a, b) => a < b ? a : b);
+  }
+
   DoseResult doseFor(double weightKg) {
-    if (mgPerKg != null && mgPerKg! > 0) {
-      final raw = mgPerKg! * weightKg;
-      final capped = _capAtAdultMax(raw);
-      return DoseResult(
-        amount: capped,
-        unit: unit,
-        formula: '${mgPerKg!.toStringAsFixed(1)} $unit/kg × '
-            '${weightKg.toStringAsFixed(1)} kg',
-        capped: capped < raw,
+    if (weightKg <= 0) return DoseResult.unknown(unit);
+
+    if (ageBased) {
+      return DoseResult.ageBased(
+        unit,
+        ageRestrictions ?? notes ?? 'Dose by age — see notes.',
       );
     }
-    // Table fallback: find closest weight bucket.
-    double? closest;
-    double minDiff = double.infinity;
-    dosageByWeight.forEach((w, _) {
-      final diff = (double.parse(w) - weightKg).abs();
-      if (diff < minDiff) {
-        minDiff = diff;
-        closest = double.parse(w);
+
+    // Formula path: mg/kg × weight, capped at THIS drug's maximum.
+    if (mgPerKg != null && mgPerKg! > 0) {
+      final raw = mgPerKg! * weightKg;
+      final cap = _tableMax ?? (unit == 'mg' ? 1000.0 : null);
+      final amount = (cap != null && raw > cap) ? cap : raw;
+      return DoseResult(
+        amount: amount,
+        unit: unit,
+        formula:
+            '${_trim(mgPerKg!)}/kg × ${_trim(weightKg)} kg',
+        capped: cap != null && raw > cap,
+      );
+    }
+
+    // Table path: FLOOR lookup — the largest bucket at or below the
+    // patient's weight. Nearest-neighbor would jump WHO weight bands
+    // early (a 14.9 kg child snapping to the 15 kg artemether-
+    // lumefantrine bucket doubles the dose).
+    final minW = _tableMinWeight;
+    if (minW == null) return DoseResult.unknown(unit);
+    if (weightKg < minW) {
+      return DoseResult.belowTable(
+        unit,
+        'Below the dosing table (${_trim(minW)} kg minimum). '
+        'Check age restrictions or refer.',
+      );
+    }
+    double floorWeight = -1;
+    double dose = 0;
+    dosageByWeight.forEach((k, v) {
+      final w = double.parse(k);
+      if (w <= weightKg && w > floorWeight) {
+        floorWeight = w;
+        dose = v;
       }
     });
-    if (closest == null) return DoseResult.unknown(unit);
-    final dose = dosageByWeight[closest!.toStringAsFixed(1)]!;
+    if (dose == 0) {
+      return DoseResult.notRecommended(
+        unit,
+        ageRestrictions ?? 'Not recommended at this weight/age.',
+      );
+    }
     return DoseResult(
       amount: dose,
       unit: unit,
-      formula:
-          'Lookup at ${closest!.toStringAsFixed(1)} kg (approx)',
+      formula: 'WHO band at ${_trim(floorWeight)} kg and above',
       capped: false,
     );
   }
 
-  // Approximate ceiling at standard adult max for table-less calc.
-  // Most pediatric drugs cap around the listed max in `maxDailyDose`,
-  // but for a single dose, paracetamol/ibuprofen cap at 1000/400 mg, etc.
-  // We use 1000 mg as a conservative single-dose ceiling.
-  double _capAtAdultMax(double mg) {
-    const adultSingleDoseCeilingMg = 1000.0;
-    if (unit != 'mg') return mg;
-    return mg > adultSingleDoseCeilingMg
-        ? adultSingleDoseCeilingMg
-        : mg;
-  }
+  static String _trim(double v) =>
+      v.truncateToDouble() == v ? v.toStringAsFixed(0) : v.toStringAsFixed(1);
 
   // Legacy helper retained for back-compat with earlier callers.
   String? getDosage(double weightKg) {
@@ -118,22 +158,48 @@ class DoseResult {
   final bool capped;
   final bool isKnown;
 
+  // Set when no numeric dose should be shown; explains why.
+  final String? reason;
+
   DoseResult({
     required this.amount,
     required this.unit,
     required this.formula,
     required this.capped,
-  }) : isKnown = true;
+  })  : isKnown = true,
+        reason = null;
 
   DoseResult.unknown(this.unit)
       : amount = 0,
         formula = '',
         capped = false,
-        isKnown = false;
+        isKnown = false,
+        reason = 'No dose data available.';
+
+  DoseResult.ageBased(this.unit, String detail)
+      : amount = 0,
+        formula = '',
+        capped = false,
+        isKnown = false,
+        reason = 'Dosed by AGE, not weight. $detail';
+
+  DoseResult.belowTable(this.unit, String detail)
+      : amount = 0,
+        formula = '',
+        capped = false,
+        isKnown = false,
+        reason = detail;
+
+  DoseResult.notRecommended(this.unit, String detail)
+      : amount = 0,
+        formula = '',
+        capped = false,
+        isKnown = false,
+        reason = 'Not recommended. $detail';
 
   String format() {
-    if (!isKnown) return 'No dose data';
-    final cap = capped ? ' (capped at adult max)' : '';
-    return '${amount.toStringAsFixed(amount.truncateToDouble() == amount ? 0 : 1)} $unit$cap';
+    if (!isKnown) return reason ?? 'No dose data';
+    final cap = capped ? ' (capped at maximum)' : '';
+    return '${Medication._trim(amount)} $unit$cap';
   }
 }

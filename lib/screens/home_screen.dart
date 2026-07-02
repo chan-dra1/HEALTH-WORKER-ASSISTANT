@@ -4,6 +4,8 @@ import '../services/database_service.dart';
 import 'symptom_checker_screen.dart';
 import 'dosage_calculator_screen.dart';
 import 'patient_tracker_screen.dart';
+import 'facilities_screen.dart';
+import 'about_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -285,6 +287,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   MaterialPageRoute(
                       builder: (_) => const PatientTrackerScreen()));
               _refreshPatients();
+            },
+          ),
+          _navTile(
+            icon: Icons.location_city,
+            label: 'Health facilities',
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => const FacilitiesScreen()));
+            },
+          ),
+          const Divider(),
+          _navTile(
+            icon: Icons.info_outline,
+            label: 'About & limits',
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const AboutScreen()));
             },
           ),
         ],

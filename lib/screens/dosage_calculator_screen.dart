@@ -125,6 +125,38 @@ class _DosageCalculatorScreenState extends State<DosageCalculatorScreen> {
       return _infoCard(m);
     }
     final dose = m.doseFor(w);
+
+    // Non-numeric outcome (age-based drug, weight below table, not
+    // recommended): show the reason prominently, never a number.
+    if (!dose.isKnown) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Card(
+            color: Colors.orange[50],
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.warning_amber, color: Colors.orange[900]),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Text(dose.reason ?? 'No dose available.',
+                        style: TextStyle(
+                            color: Colors.orange[900],
+                            fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          _infoCard(m),
+        ],
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
