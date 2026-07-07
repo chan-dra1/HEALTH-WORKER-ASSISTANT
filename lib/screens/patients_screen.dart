@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/patient.dart';
 import '../services/database_service.dart';
+import 'patient_detail_screen.dart';
 
 class PatientsScreen extends StatefulWidget {
   const PatientsScreen({Key? key}) : super(key: key);
@@ -97,6 +98,19 @@ class _PatientsScreenState extends State<PatientsScreen> {
                       style: const TextStyle(fontSize: 16)),
                   subtitle:
                       Text('${p.age} years old  |  ${p.village}'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () async {
+                    await Navigator.push<bool>(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) =>
+                            PatientDetailScreen(patient: p),
+                      ),
+                    );
+                    // Refresh regardless of result: the patient may
+                    // have been deleted or had vitals recorded.
+                    _refresh();
+                  },
                 ),
               );
             },

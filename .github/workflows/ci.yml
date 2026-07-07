@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate-medical-data:
+    name: Validate medical data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check safety invariants in assets/data
+        run: |
+          python3 - <<'EOF'
+          import json
+          import sys
+
+          errors = []
+
+          def check_sources(entry, label):
+              sources = entry.get("sources")
+              if not isinstance(sources, list) or len(sources) == 0:
+                  errors.append(f"{label} '{entry.get('name', '<unnamed>')}' lacks a non-empty 'sources' array")
+
+          with open("assets/data/symptom_database.json") as f:
+              symptom_db = json.load(f)
+          with open("assets/data/drug_reference.json") as f:
+              drug_db = json.load(f)
+
+          for condition in symptom_db["conditions"]:
+              check_sources(condition, "Condition")
+              if condition.get("severity") == "severe" and condition.get("referralNeeded") is not True:
+                  errors.append(
+                      f"Condition '{condition.get('name', '<unnamed>')}' has severity 'severe' "
+                      f"but referralNeeded != true"
+                  )
+
+          for medication in drug_db["medications"]:
+              check_sources(medication, "Medication")
+
+          if errors:
+              print("Medical data validation FAILED:")
+              for e in errors:
+                  print(f"  - {e}")
+              sys.exit(1)
+
+          print(f"OK: {len(symptom_db['conditions'])} conditions and "
+                f"{len(drug_db['medications'])} medications passed safety checks.")
+          EOF
+
+  test:
+    name: Analyze and test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze --no-fatal-infos
+
+      - name: Run tests
+        run: flutter test
