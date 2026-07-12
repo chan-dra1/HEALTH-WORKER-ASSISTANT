@@ -12,6 +12,7 @@ class PatientsScreen extends StatefulWidget {
 
 class _PatientsScreenState extends State<PatientsScreen> {
   late Future<List<Patient>> _patientsFuture;
+  String _query = '';
 
   @override
   void initState() {
@@ -50,8 +51,17 @@ class _PatientsScreenState extends State<PatientsScreen> {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
-          final patients = snapshot.data ?? [];
-          if (patients.isEmpty) {
+          var patients = snapshot.data ?? [];
+          final hasAny = patients.isNotEmpty;
+          if (_query.isNotEmpty) {
+            final q = _query.toLowerCase();
+            patients = patients
+                .where((p) =>
+                    p.fullName.toLowerCase().contains(q) ||
+                    p.village.toLowerCase().contains(q))
+                .toList();
+          }
+          if (!hasAny) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -74,11 +84,31 @@ class _PatientsScreenState extends State<PatientsScreen> {
               ),
             );
           }
-          return ListView.builder(
-            padding: const EdgeInsets.only(bottom: 88),
-            itemCount: patients.length,
-            itemBuilder: (context, index) {
-              final p = patients[index];
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 12, 12, 4),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Search by name or village',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(),
+                    isDense: true,
+                  ),
+                  onChanged: (q) => setState(() => _query = q),
+                ),
+              ),
+              if (patients.isEmpty)
+                Expanded(
+                  child: Center(child: Text('No match for "$_query".')),
+                )
+              else
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 88),
+                    itemCount: patients.length,
+                    itemBuilder: (context, index) {
+                      final p = patients[index];
               return Card(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -109,11 +139,14 @@ class _PatientsScreenState extends State<PatientsScreen> {
                     );
                     // Refresh regardless of result: the patient may
                     // have been deleted or had vitals recorded.
-                    _refresh();
-                  },
+                            _refresh();
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              );
-            },
+            ],
           );
         },
       ),
